@@ -1,0 +1,36 @@
+-------------------------------------------------------------------------------
+Test set: runner.TestRunner
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 4.786 s <<< FAILURE! - in runner.TestRunner
+Test Feature.Test Scenario  Time elapsed: 4.024 s  <<< ERROR!
+org.openqa.selenium.SessionNotCreatedException: 
+session not created: This version of ChromeDriver only supports Chrome version 114
+Current browser version is 140.0.7339.128 with binary path C:\Users\nathalia.bim\AppData\Local\Google\Chrome\Application\chrome.exe
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'LP1969', ip: '172.22.200.243', os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.11'
+Driver info: driver.version: ChromeDriver
+remote stacktrace: Backtrace:
+	GetHandleVerifier [0x011BA813+48355]
+	(No symbol) [0x0114C4B1]
+	(No symbol) [0x01055358]
+	(No symbol) [0x010761AC]
+	(No symbol) [0x01071EF3]
+	(No symbol) [0x01070579]
+	(No symbol) [0x010A0C55]
+	(No symbol) [0x010A093C]
+	(No symbol) [0x0109A536]
+	(No symbol) [0x010782DC]
+	(No symbol) [0x010793DD]
+	GetHandleVerifier [0x0141AABD+2539405]
+	GetHandleVerifier [0x0145A78F+2800735]
+	GetHandleVerifier [0x0145456C+2775612]
+	GetHandleVerifier [0x012451E0+616112]
+	(No symbol) [0x01155F8C]
+	(No symbol) [0x01152328]
+	(No symbol) [0x0115240B]
+	(No symbol) [0x01144FF7]
+	BaseThreadInitThunk [0x764A5D49+25]
+	RtlInitializeExceptionChain [0x76F1D1AB+107]
+	RtlGetAppContainerNamedObjectPath [0x76F1D131+561]
+
+
