@@ -1,28 +1,23 @@
 package utils;
 
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import hooks.Hooks;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import java.io.File;
+import java.io.IOException;
 
 public class Utils {
-
-    public static void textShouldBe(WebElement element, String expectedText) {
-        String actualText = element.getText();
-        assertThat(actualText).as("The text does not match the expected value").isEqualTo(expectedText);
-    }
-
-    public static boolean validateElementText(WebElement element, String expectedText) {
+    public static void takeScreenshot(WebDriver driver, String fileName) {
+        File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
         try {
-            WebDriverWait wait = new WebDriverWait(Hooks.getDriver(), 10); // 10 segundos de timeout
-            wait.until(ExpectedConditions.visibilityOf(element));
-            String actualText = element.getText();
-            return actualText.equals(expectedText);
-        } catch (Exception e) {
+            FileUtils.copyFile(scrFile, new File("./screenshots/" + fileName + ".png"));
+        } catch (IOException e) {
             e.printStackTrace();
-            return false;
         }
     }
 }
+
+//Comentários:
+//- Esta classe fornece métodos utilitários para esperar elementos serem visíveis ou clicáveis
+// - Pode ser expandida com outros métodos úteis conforme necessário.

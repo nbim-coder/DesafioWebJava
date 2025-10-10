@@ -1,37 +1,48 @@
 package stepdefinitions;
 
-import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.When;
-import io.cucumber.java.en.Then;
-import pageobject.LoginPage;
-import hooks.Hooks;
+import io.cucumber.java.en.*;
 import org.junit.Assert;
+import pageobject.LoginPage;
+import pageobject.InventoryPage;
+import hooks.Hooks;
+import org.openqa.selenium.WebDriver;
 
 public class loginSteps {
+    private WebDriver driver;
     private LoginPage loginPage;
+    private InventoryPage inventoryPage;
 
     public loginSteps() {
-        loginPage = new LoginPage(Hooks.getDriver());
-        }
+        this.driver = Hooks.getDriver();
+        this.loginPage = new LoginPage(driver);
+        this.inventoryPage = new InventoryPage(driver);
+    }
+
     @Given("I am on the login page")
     public void i_am_on_the_login_page() {
-        Assert.assertTrue("Not on login page", loginPage.isLoginPageDisplayed());
+        driver.get("https://www.saucedemo.com/");
     }
 
-    @Then("I should see the site title {string}")
-    public void i_should_see_the_site_title(String expectedTitle) {
-        Assert.assertEquals(expectedTitle, loginPage.getTitleSiteNameElement());
+    @When("I enter username {string} and password {string}")
+    public void i_enter_username_and_password(String username, String password) {
+        loginPage.enterUsername(username);
+        loginPage.enterPassword(password);
     }
 
-    @When("I enter valid username {string} and password {string}")
-    public void i_enter_valid_username_and_password(String username, String password) {
-        loginPage.login(username, password);
+    @And("I click the login button")
+    public void i_click_the_login_button() {
+        loginPage.clickLoginButton();
     }
 
-    @And("I should see the products page title")
-    public void i_should_see_the_products_page_title() {
-        loginPage.validTitle();
+    @Then("I should be logged in successfully")
+    public void i_should_be_logged_in_successfully() {
+        System.out.println("Checking if user is logged in");
+        boolean isLoggedIn = inventoryPage.isPageLoaded();
+        System.out.println("Is user logged in: " + isLoggedIn);
+        Assert.assertTrue("User is not logged in", isLoggedIn);
     }
-
+    @Then("I should see an error message")
+    public void i_should_see_an_error_message() {
+        Assert.assertTrue("Error message is not displayed", loginPage.isErrorMessageDisplayed());
+    }
 }
