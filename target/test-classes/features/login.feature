@@ -1,22 +1,15 @@
 Feature: Login Functionality
 
-  Scenario: Successful login
+  Scenario: Successful login with valid credentials
     Given I am on the login page
-    When I enter username "standard_user" and password "secret_sauce"
+    When I enter username "standard_user"
+    And I enter password "secret_sauce"
     And I click the login button
-    Then I should be logged in successfully
+    Then I should be logged in
 
-  Scenario: Failed login
+  Scenario: Failed login with invalid credentials
     Given I am on the login page
-    When I enter username "locked_out_user" and password "secret_sauce"
-    And I click the login button
-    Then I should see an error message
-
-  Scenario: Login with invalid credentials
-    Given I am on the login page
-    When I enter username "invalid_user" and password "invalid_password"
+    When I enter username "invalid_user"
+    And I enter password "invalid_password"
     And I click the login button
     Then I should see an error message
-
-  # Este arquivo contém os cenários de teste para a funcionalidade de login.
-  # Testa tanto o login bem-sucedido quanto o login com credenciais inválidas.

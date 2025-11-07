@@ -1,23 +1,40 @@
 package utils;
 
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import java.io.File;
-import java.io.IOException;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
 
 public class Utils {
-    public static void takeScreenshot(WebDriver driver, String fileName) {
-        File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-        try {
-            FileUtils.copyFile(scrFile, new File("./screenshots/" + fileName + ".png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private WebDriver driver;
+
+    public Utils(WebDriver driver) {
+        this.driver = driver;
+    }
+
+    public void waitForElementToBeVisible(WebElement element, int timeoutInSeconds) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds));
+        wait.until(ExpectedConditions.visibilityOf(element));
+    }
+
+    public void waitForElementToBeClickable(WebElement element, int timeoutInSeconds) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds));
+        wait.until(ExpectedConditions.elementToBeClickable(element));
+    }
+
+    public void sendKeys(WebElement element, String text) {
+        waitForElementToBeVisible(element, 10);
+        element.clear();
+        element.sendKeys(text);
+    }
+
+    public void click(WebElement element) {
+        waitForElementToBeClickable(element, 10);
+        element.click();
+    }
+
+    public void takeScreenshot(String name) {
+        // Implement screenshot logic here
     }
 }
-
-//Comentários:
-//- Esta classe fornece métodos utilitários para esperar elementos serem visíveis ou clicáveis
-// - Pode ser expandida com outros métodos úteis conforme necessário.

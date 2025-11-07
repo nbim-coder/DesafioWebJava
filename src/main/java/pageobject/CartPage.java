@@ -4,28 +4,22 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import java.time.Duration;
+import utils.Utils;
 
 public class CartPage {
     private WebDriver driver;
-    private WebDriverWait wait;
+    private Utils utils;
 
     @FindBy(id = "checkout")
     private WebElement checkoutButton;
 
     public CartPage(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        this.utils = new Utils(driver);
         PageFactory.initElements(driver, this);
     }
 
-    public void clickCheckoutButton() {
-        wait.until(ExpectedConditions.elementToBeClickable(checkoutButton)).click();
+    public void proceedToCheckout() {
+        utils.click(checkoutButton);
     }
 }
-
-//Comentários
-//- Esta classe representa a página do carrinho de compras.
-//- Fornece um método para iniciar o processo de checkout.

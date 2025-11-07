@@ -1,13 +1,13 @@
+# File: /DesafioWebJava/src/test/resources/features/checkout.feature
 Feature: Checkout Functionality
 
-  Background:
-    Given I am logged in as "standard_user"
-    And I have added an item to the cart
-
   Scenario: Successful checkout
-    When I go to the cart page
-    And I click on the checkout button
-    And I enter my personal information
-    And I click on the continue button
-    And I confirm the order
-    Then I should see a confirmation message
+    Given I am logged in as a standard user
+    And I have added items to the cart
+    When I proceed to checkout
+    And I enter the following checkout information:
+      | First Name | Last Name | Postal Code |
+      | John       | Doe       | 12345       |
+    And I click the Continue button
+    And I click the Finish button
+    Then I should see the order confirmation

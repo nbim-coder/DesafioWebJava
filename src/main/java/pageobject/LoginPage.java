@@ -4,13 +4,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import java.time.Duration;
+import utils.Utils;
 
 public class LoginPage {
     private WebDriver driver;
-    private WebDriverWait wait;
+    private Utils utils;
 
     @FindBy(id = "user-name")
     private WebElement usernameField;
@@ -26,34 +24,27 @@ public class LoginPage {
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        this.utils = new Utils(driver);
         PageFactory.initElements(driver, this);
-    }
-    public void login(String username, String password) {
-        enterUsername(username);
-        enterPassword(password);
-        clickLoginButton();
-        System.out.println("Login attempt completed");
     }
 
     public void enterUsername(String username) {
-        wait.until(ExpectedConditions.visibilityOf(usernameField)).sendKeys(username);
+        utils.sendKeys(usernameField, username);
     }
 
     public void enterPassword(String password) {
-        wait.until(ExpectedConditions.visibilityOf(passwordField)).sendKeys(password);
+        utils.sendKeys(passwordField, password);
     }
 
-    public void clickLoginButton() {
-        wait.until(ExpectedConditions.elementToBeClickable(loginButton)).click();
+    public void submitLogin() {
+        utils.click(loginButton);
+    }
+
+    public boolean isLoggedIn() {
+        return driver.getCurrentUrl().contains("inventory.html");
     }
 
     public boolean isErrorMessageDisplayed() {
-        return wait.until(ExpectedConditions.visibilityOf(errorMessage)).isDisplayed();
+        return errorMessage.isDisplayed();
     }
-
-    public String getErrorMessage() {
-        return wait.until(ExpectedConditions.visibilityOf(errorMessage)).getText();
-    }
-
 }
